@@ -1,24 +1,38 @@
-import styled from "styled-components";
 import GlobalStyles from "../styles/GlobalStyles.js";
 import Button from "../ui/Button.jsx";
 import Input from "../ui/Input.jsx";
+import H1 from '../ui/Heading.jsx';
+import styled from "styled-components";
+import Row from "../ui/Row.jsx";
 
-const H1 = styled.h1`
-font-size: 30px;
-font-weight: 600;
-background-color: yellow;`
+const StyledApp = styled.div`
+  background-color: whitesmoke;
+  padding: 20px;
+`
 
 function App() {
   return (
     <>
       <GlobalStyles/>
-      <div>
-        <H1>The Cabin House</H1>
-        <Button>Check in</Button>
-        <Button>Check out</Button>
-        <Input placeholder="Number of guests"/>
-        <Input placeholder="Number of guests "/>
-      </div>
+      <StyledApp>
+        <Row>
+          <Row type="horizontal">
+            <H1 as="h1">The Cabin House</H1>
+            <div>
+              <H1 as="h2">The Cabin House</H1>
+              <Button>Check in</Button>
+              <Button variation="secondary" size="small">Check out</Button>
+            </div>
+          </Row>
+          <Row>
+            <H1 as="h3">The Cabin House</H1>
+            <div>
+              <Input placeholder="Number of guests"/>
+              <Input placeholder="Number of guests "/>
+            </div>
+          </Row>
+        </Row>
+      </StyledApp>
     </>
   )
 }
