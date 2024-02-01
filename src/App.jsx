@@ -1,39 +1,50 @@
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import Dashboard from "../pages/Dashboard.jsx";
+import Bookings from "../pages/Bookings.jsx";
+import Cabins from "../pages/Cabins.jsx";
+import Users from "../pages/Users.jsx";
+import Settings from "../pages/Settings.jsx";
+import Account from "../pages/Account.jsx";
+import Login from "../pages/Login.jsx";
+import PageNotFound from "../pages/PageNotFound.jsx";
 import GlobalStyles from "../styles/GlobalStyles.js";
-import Button from "../ui/Button.jsx";
-import Input from "../ui/Input.jsx";
-import H1 from '../ui/Heading.jsx';
-import styled from "styled-components";
-import Row from "../ui/Row.jsx";
-
-const StyledApp = styled.div`
-  background-color: whitesmoke;
-  padding: 20px;
-`
+import AppLayout from "../ui/AppLayout.jsx";
 
 function App() {
+
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        // staleTime: 60 * 1000,
+        staleTime: 0,
+      },
+    },
+  });
+
   return (
-    <>
-      <GlobalStyles/>
-      <StyledApp>
-        <Row>
-          <Row type="horizontal">
-            <H1 as="h1">The Cabin House</H1>
-            <div>
-              <H1 as="h2">The Cabin House</H1>
-              <Button>Check in</Button>
-              <Button variation="secondary" size="small">Check out</Button>
-            </div>
-          </Row>
-          <Row>
-            <H1 as="h3">The Cabin House</H1>
-            <div>
-              <Input placeholder="Number of guests"/>
-              <Input placeholder="Number of guests "/>
-            </div>
-          </Row>
-        </Row>
-      </StyledApp>
-    </>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false}/>
+        <GlobalStyles/>
+        <BrowserRouter>
+          <Routes>
+            {/*Using a layout route to nest child routes inside it, we use it
+           to render the AppLayout JSX on all the routes nested inside it*/}
+            <Route element={<AppLayout/>}>
+              <Route index element={<Navigate replace to="dashboard"/>}/>
+              <Route path="dashboard" element={<Dashboard/>}/>
+              <Route path="bookings" element={<Bookings/>}/>
+              <Route path="cabins" element={<Cabins/>}/>
+              <Route path="users" element={<Users/>}/>
+              <Route path="settings" element={<Settings/>}/>
+              <Route path="account" element={<Account/>}/>
+            </Route>
+            <Route path="login" element={<Login/>}/>
+            <Route path="*" element={<PageNotFound/>}/>
+          </Routes>
+        </BrowserRouter>
+    </QueryClientProvider>
   )
 }
 

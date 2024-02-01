@@ -1,8 +1,11 @@
 import styled from "styled-components";
+import {useQuery} from "@tanstack/react-query";
+import {getCabins} from "../../services/apiCabins.js";
+import Spinner from "../../ui/Spinner.jsx";
+import CabinRow from "./CabinRow.jsx";
 
 const Table = styled.div`
   border: 1px solid var(--color-grey-200);
-
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
   border-radius: 7px;
@@ -23,3 +26,38 @@ const TableHeader = styled.header`
   color: var(--color-grey-600);
   padding: 1.6rem 2.4rem;
 `;
+
+function CabinTable() {
+
+  // Fetching data from superbase using react-query
+  const {
+    data: cabins,
+    isLoading,
+    error
+  } = useQuery({
+    queryKey: ['cabin'],
+    queryFn: getCabins,
+  });
+
+  // When loading data from superbase
+  if(isLoading) return <Spinner/>;
+
+  return (
+    <Table role='table'>
+      <TableHeader role='row'>
+        <div></div>
+        <div>Cabin</div>
+        <div>Capacity</div>
+        <div>Price</div>
+        <div>Discount</div>
+        <div></div>
+      </TableHeader>
+      {
+        cabins.map((cabin) => <CabinRow cabin={cabin} key={cabin.id}/>)
+      }
+    </Table>
+  )
+}
+
+export default CabinTable;
+
