@@ -11,6 +11,7 @@ import Login from "../pages/Login.jsx";
 import PageNotFound from "../pages/PageNotFound.jsx";
 import GlobalStyles from "../styles/GlobalStyles.js";
 import AppLayout from "../ui/AppLayout.jsx";
+import {Toaster} from "react-hot-toast";
 
 function App() {
 
@@ -30,7 +31,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             {/*Using a layout route to nest child routes inside it, we use it
-           to render the AppLayout JSX on all the routes nested inside it*/}
+            to render the AppLayout JSX on all the routes nested inside it*/}
             <Route element={<AppLayout/>}>
               <Route index element={<Navigate replace to="dashboard"/>}/>
               <Route path="dashboard" element={<Dashboard/>}/>
@@ -44,6 +45,27 @@ function App() {
             <Route path="*" element={<PageNotFound/>}/>
           </Routes>
         </BrowserRouter>
+
+      <Toaster
+        position="top-center"
+        gutter={12}
+        containerStyle={{margin: "8px"}}
+        toastOptions={{
+          success: {
+            duration: 3000
+          },
+          error: {
+            duration: 5000
+          },
+          style: {
+            fontSize: "16px",
+            maxWidth: "500px",
+            padding: "16px 24px",
+            backgroundColor: "var(--color-grey-0)",
+            color: "var(--color-grey-700)",
+          },
+      }}
+      />
     </QueryClientProvider>
   )
 }
