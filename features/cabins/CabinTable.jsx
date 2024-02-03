@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import {useQuery} from "@tanstack/react-query";
-import {getCabins} from "../../services/apiCabins.js";
 import Spinner from "../../ui/Spinner.jsx";
 import CabinRow from "./CabinRow.jsx";
+import {useCabin} from "./useCabin.js";
 
 const Table = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -29,15 +28,8 @@ const TableHeader = styled.header`
 
 function CabinTable() {
 
-  // Fetching data from superbase using react-query
-  const {
-    data: cabins,
-    isLoading,
-    error
-  } = useQuery({
-    queryKey: ['cabins'],
-    queryFn: getCabins,
-  });
+  // Custom hook
+  const {isLoading, cabins} = useCabin();
 
   // When loading data from superbase
   if(isLoading) return <Spinner/>;
