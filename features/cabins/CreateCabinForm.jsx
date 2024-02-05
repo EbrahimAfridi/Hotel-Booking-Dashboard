@@ -9,7 +9,7 @@ import {useCreateCabin} from "./useCreateCabin.js";
 import {useEditCabin} from "./useEditCabin.js";
 
 // eslint-disable-next-line react/prop-types
-function CreateCabinForm({ cabinToEdit = {} }) {
+function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
 
   // Custom Hooks
   const {isAdding, createCabin} = useCreateCabin();
@@ -37,25 +37,29 @@ function CreateCabinForm({ cabinToEdit = {} }) {
 
     if (isEditSession) {
       editCabin({newCabinData: {...data, image: image}, id: editId}, {
-        onSuccess: (data) => {
+        onSuccess: () => {
           reset();
+          onCloseModal?.();
         }
       });
     }else {
       createCabin({...data, image: image}, {
-        onSuccess: (data) => {
+        onSuccess: () => {
           reset();
+          onCloseModal?.();
         }
       });
     }
   }
 
+  // Error while form submission
   function onError(error) {
     console.error(error);
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form onSubmit={handleSubmit(onSubmit, onError)} type={onCloseModal ? "modal" : "regular"}>
+
       <FormRow label="Cabin name" error={errors?.name?.message}>
         <Input type="text" id="name" disabled={isWorking} {
           ...register("name", {
@@ -120,11 +124,12 @@ function CreateCabinForm({ cabinToEdit = {} }) {
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset">
+        <Button onClick={() => onCloseModal?.()} variation="secondary" type="reset">
           Cancel
         </Button>
         <Button disabled={isWorking}>{isEditSession ? 'Edit Cabin' : "Create new cabin"}</Button>
       </FormRow>
+
     </Form>
   );
 }
