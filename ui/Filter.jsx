@@ -38,7 +38,7 @@ const FilterButton = styled.button`
 function Filter({filterField, options}) {
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentField = searchParams.get(filterField) || options.get(0).value;
+  const currentField = searchParams.get(filterField) || options.at(0).value;
 
   // This will add the discount value to the url when the button is clicked.
   const handleClick = (value) => {
@@ -52,6 +52,7 @@ function Filter({filterField, options}) {
       {options.map((option) => (
         <FilterButton key={option.value}
                       active={option.value === currentField}
+                      disabled={option.value === currentField}
                       onClick={() => handleClick(option.value)}
         >
           {option.label}
