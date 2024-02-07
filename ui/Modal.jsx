@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import {HiXMark} from "react-icons/hi2";
 import {createPortal} from "react-dom";
-import {cloneElement, createContext, useContext, useState} from "react";
+import {cloneElement, createContext, useContext, useEffect, useRef, useState} from "react";
+import {useOutsideClick} from "../hooks/useOutsideClick.js";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -58,22 +59,23 @@ const ModalContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 export default function Modal({children}) {
-  const [openName, setOpenName] = useState('');
 
+  const [openName, setOpenName] = useState('');
   const close = () => setOpenName('');
-  const open = setOpenName;
+  const open = setOpenName; // Assigning the setOpenName setter function to variable open later open can be used as a reference to the function.
+
 
   return (
     <ModalContext.Provider value={{openName, open, close}}>
       {children}
     </ModalContext.Provider>
-  )
+  );
 }
 
 function Open({children, opens: opensWindowName}) {
   const {open} = useContext(ModalContext);
 
-  return cloneElement(children, { onClick: () => open(opensWindowName) });
+  return cloneElement(children, {onClick: () => open(opensWindowName)});
 // It is used to clone and return a new element with the same type and props as the original element,
 // but with new children.
 }
@@ -82,21 +84,27 @@ function Open({children, opens: opensWindowName}) {
 function Window({children, name}) {
 
   const {openName, close} = useContext(ModalContext);
-  if (openName !== name) return null;
+
+  // Custom hook to close the modal when clicking outside the modal window
+  const ref = useOutsideClick(close);
+
+  if (name !== openName) return null;
 
   return createPortal(
     <Overlay>
-      <StyledModal>
+      <StyledModal ref={ref}>
         <Button onClick={close}>
           <HiXMark/>
         </Button>
+
         <div>
           {cloneElement(children, {onCloseModal: close})}
         </div>
+
       </StyledModal>
     </Overlay>,
     document.body
-  )
+  );
 }
 
 Modal.Open = Open;

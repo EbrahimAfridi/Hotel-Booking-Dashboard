@@ -29,10 +29,9 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
 
   // error handling using RQs formState
   const {errors} = formState;
-  console.error(errors);
 
   function onSubmit(data) {
-    // here string true when link/superbase && data.image[0] when fileList true i.e. uploaded from PC/input
+    // here string true when link/superbase && data.image[0] when fileList true i.e., uploaded from PC/input
     const image = typeof data.image === "string" ? data.image : data.image[0];
 
     if (isEditSession) {
@@ -43,7 +42,8 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
         }
       });
     }else {
-      createCabin({...data, image: image}, {
+      createCabin({...data, image: image},
+        {
         onSuccess: () => {
           reset();
           onCloseModal?.();
@@ -53,8 +53,10 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
   }
 
   // Error while form submission
-  function onError(error) {
-    console.error(error);
+  function onError() {
+    // Jonas also commented this part because we have given the fallback value as an empty object, and when this
+    //  component renders, it throws an error undefined which is ugly to see, so ignore printing this error.
+    // console.error(error);
   }
 
   return (
