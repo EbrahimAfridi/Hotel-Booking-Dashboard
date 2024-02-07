@@ -1,4 +1,4 @@
-import supabase, {supabaseUrl} from "./superbase.js";
+import supabase, {supabaseUrl} from "./supabase.js";
 
 export async function getCabins(){
   let { data, error } = await supabase
