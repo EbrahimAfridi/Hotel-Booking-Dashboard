@@ -12,6 +12,7 @@ import PageNotFound from "../pages/PageNotFound.jsx";
 import GlobalStyles from "../styles/GlobalStyles.js";
 import AppLayout from "../ui/AppLayout.jsx";
 import {Toaster} from "react-hot-toast";
+import Booking from "../pages/Booking.jsx";
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
               <Route index element={<Navigate replace to="dashboard"/>}/>
               <Route path="dashboard" element={<Dashboard/>}/>
               <Route path="bookings" element={<Bookings/>}/>
+              <Route path="bookings/:bookingId" element={<Booking/>}/>
               <Route path="cabins" element={<Cabins/>}/>
               <Route path="users" element={<Users/>}/>
               <Route path="settings" element={<Settings/>}/>

@@ -37,7 +37,7 @@ const Amount = styled.div`
 `;
 
 function BookingRow({
-  booking: {
+  booking: { 
     id: bookingId,
     created_at,
     startDate,
@@ -90,6 +90,7 @@ function BookingRow({
           <Menus.Button icon={<HiEye/>} onClick={() => navigate(`/bookings/${bookingId}`)}>see details</Menus.Button>
         </Menus.List>
       </Menus.Menu>
+
     </Table.Row>
   );
 }
