@@ -15,6 +15,6 @@ export function useBooking() {
     }
   );
 
-  // console.log(booking);
+  console.log(booking);
   return {isLoading, error, booking};
 }

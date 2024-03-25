@@ -43,6 +43,7 @@ function Filter({filterField, options}) {
   // This will add the discount value to the url when the button is clicked.
   const handleClick = (value) => {
     searchParams.set(filterField, value);
+    if (searchParams.get("page")) searchParams.set("page", 1);
     setSearchParams(searchParams);
   }
 
@@ -50,10 +51,11 @@ function Filter({filterField, options}) {
   return (
     <StyledFilter>
       {options.map((option) => (
-        <FilterButton key={option.value}
-                      active={option.value === currentField}
-                      disabled={option.value === currentField}
-                      onClick={() => handleClick(option.value)}
+        <FilterButton
+          key={option.value}
+          active={option.value === currentField}
+          disabled={option.value === currentField}
+          onClick={() => handleClick(option.value)}
         >
           {option.label}
         </FilterButton>
