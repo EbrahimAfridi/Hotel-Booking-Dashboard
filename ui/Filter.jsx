@@ -64,4 +64,4 @@ function Filter({filterField, options}) {
   );
 }
 
-export default Filter
+export default Filter;
