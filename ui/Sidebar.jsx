@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Logo from "./Logo.jsx";
 import MainNav from "./MainNav.jsx";
-import Uploader from "../data/Uploader.jsx";
+// import Uploader from "../data/Uploader.jsx";
 
 const StyledSidebar = styled.aside`
   grid-row: 1 / -1;
@@ -18,7 +18,7 @@ export default function Sidebar() {
       <Logo/>
       <MainNav/>
 
-      <Uploader/>
+      {/*<Uploader/>*/}
     </StyledSidebar>
   )
 }

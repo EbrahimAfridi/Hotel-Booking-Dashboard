@@ -81,10 +81,11 @@ function Menus({children}) {
   )
 }
 
-function Toggle({id}) {
+function Toggle({ id }) {
 
   const {openId, open, close, setPosition} = useContext(MenusContext);
   function handleClick(e) {
+    e.stopPropagation();
     // We do this to find the closest button around the ... icon that was clicked
     const rect = e.target.closest("button").getBoundingClientRect();
     setPosition({
@@ -92,7 +93,7 @@ function Toggle({id}) {
       y: rect.y + rect.height + 8,
     });
 
-    console.log(rect);
+    // console.log(rect);
     openId === "" || openId !== id ? open(id) : close();
   }
 
@@ -105,7 +106,7 @@ function Toggle({id}) {
 
 function List({id, children}) {
   const {openId, position, close} = useContext(MenusContext);
-  const ref = useOutsideClick(close);
+  const ref = useOutsideClick(close, false);
 
   if(openId !== id) return null;
 
