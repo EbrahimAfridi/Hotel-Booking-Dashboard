@@ -16,6 +16,7 @@ import Booking from "../pages/Booking.jsx";
 import Checkin from "../pages/Checkin.jsx";
 import ProtectedRoute from "../ui/ProtectedRoute.jsx";
 import {DarkModeProvider} from "./context/DarkModeContext.jsx";
+import {useState} from "react";
 
 function App() {
 
