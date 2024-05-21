@@ -12,12 +12,11 @@ const StyledToday = styled.div`
     border: 1px solid var(--color-grey-100);
     border-radius: var(--border-radius-md);
 
-    padding: 3.2rem;
     display: flex;
     flex-direction: column;
     gap: 2.4rem;
     grid-column: 1 / span 2;
-    padding-top: 2.4rem;
+    padding: 2.4rem 3.2rem 3.2rem;
 `;
 
 const TodayList = styled.ul`
@@ -48,7 +47,7 @@ function TodayActivity() {
   return (
     <StyledToday>
       <Row type="horizontal">
-        <Heading as="h2">Today</Heading>
+        <Heading as="h2">Today&apos;s Activity</Heading>
       </Row>
       {
         !isLoading ? (
@@ -59,7 +58,7 @@ function TodayActivity() {
               ))}
             </TodayList>
           ) : (
-            <NoActivity>No activity today...</NoActivity>
+            <NoActivity>Click on upload bookings only to see today&apos;s activity.</NoActivity>
           )
         ) : (
           <Spinner/>
