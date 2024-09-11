@@ -16,7 +16,6 @@ import Booking from "../pages/Booking.jsx";
 import Checkin from "../pages/Checkin.jsx";
 import ProtectedRoute from "../ui/ProtectedRoute.jsx";
 import {DarkModeProvider} from "./context/DarkModeContext.jsx";
-import {useState} from "react";
 
 function App() {
 
@@ -37,7 +36,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             {/*Using a layout route to nest child routes inside it, we use it
-          to render the AppLayout JSX on all the routes nested inside it*/}
+            to render the AppLayout JSX on all the routes nested inside it*/}
             {/*Wrapping AppLayout with protected route will protect all of its children also.*/}
             <Route element={
               <ProtectedRoute>
